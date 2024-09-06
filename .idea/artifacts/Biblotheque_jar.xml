@@ -2,7 +2,7 @@
   <artifact type="jar" name="Biblotheque:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Biblotheque_jar</output-path>
     <root id="archive" name="Biblotheque.jar">
-      <element id="module-output" name="Biblotheque" />
+      <element id="module-output" name="Bibliotheque" />
     </root>
   </artifact>
 </component>
