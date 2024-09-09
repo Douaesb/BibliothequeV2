@@ -1,11 +1,20 @@
 package Dao;
 
-public interface DocumentDao {
-    void addDocument();
-    void editDocument();
-    void displayDocument();
-    void displatAllDocuments();
-    void deleteDocument();
+import entities.documents.Document;
 
-    void searchDocument();
+import java.util.List;
+
+public interface DocumentDao {
+
+    void addDocument(Document document);
+
+    void editDocument(Document document);
+
+    void displayDocument(int documentId);
+
+    List<Document> displayAllDocuments();
+
+    void deleteDocument(int documentId);
+
+    List<Document> searchDocument(String titre);
 }
