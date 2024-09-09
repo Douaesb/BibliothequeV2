@@ -1,4 +1,4 @@
-package metier.interfaces;
+package service.interfaces;
 
 public interface Reservable {
      void reserver();

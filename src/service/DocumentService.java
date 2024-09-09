@@ -1,4 +1,4 @@
-package metier.documents;
+package service;
 
 
 public abstract class DocumentService {

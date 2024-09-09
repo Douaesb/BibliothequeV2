@@ -1,4 +1,4 @@
-package metier.users;
+package service;
 
 public abstract class UtilisateurService {
 
