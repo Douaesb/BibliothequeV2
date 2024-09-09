@@ -1,4 +1,4 @@
-package Entities.users;
+package entities.users;
 
 public class Utilisateur {
 
@@ -18,15 +18,15 @@ public class Utilisateur {
         return id;
     }
 
-    public String name(){
+    public String getName(){
         return name;
     }
 
-    public int age(){
+    public int getAge(){
         return age;
     }
 
-    public String email(){
+    public String getEmail(){
         return email;
     }
 

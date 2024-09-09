@@ -1,6 +1,6 @@
 package Dao;
 
-public interface Document {
+public interface DocumentDao {
     void addDocument();
     void editDocument();
     void displayDocument();

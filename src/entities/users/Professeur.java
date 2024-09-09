@@ -1,4 +1,4 @@
-package Entities.users;
+package entities.users;
 
 public class Professeur extends Utilisateur{
 

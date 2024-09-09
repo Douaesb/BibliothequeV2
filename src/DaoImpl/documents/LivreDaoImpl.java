@@ -1,8 +1,8 @@
 package DaoImpl.documents;
 
-import Dao.Document;
+import Dao.DocumentDao;
 
-public abstract class Livre implements Document {
+public abstract class LivreDaoImpl implements DocumentDao {
     public abstract void addDocument();
     public abstract void editDocument();
     public abstract void displayDocument();

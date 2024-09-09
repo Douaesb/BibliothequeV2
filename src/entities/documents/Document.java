@@ -1,4 +1,4 @@
-package Entities.documents;
+package entities.documents;
 
 import utilitaire.DateUtils;
 
