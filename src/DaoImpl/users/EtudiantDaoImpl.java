@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EtudiantDaoImpl implements UtilisateurDao {
 
@@ -83,7 +85,44 @@ public class EtudiantDaoImpl implements UtilisateurDao {
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
+        return etudiant;
     }
+
+    @Override
+    public List<Utilisateur> displayAllUsers(){
+        List<Utilisateur> etudiants = new ArrayList<>();
+        String sql = "SELECT * FROM etudiant";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+            ResultSet res = pstmt.executeQuery();
+            if(res.next()){
+                Etudiant etudiant = new Etudiant(res.getInt("id"),
+                  res.getString("name"),
+                  res.getInt("age"),
+                  res.getString("email"),
+                  res.getString("CNE")
+                );
+                etudiants.add(etudiant);
+            }
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return etudiants;
+    }
+
+    @Override
+    public void deleteUser(int id){
+        String sql = "DELETE * FROM etudiant WHERE id = ?";
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1,id);
+            pstmt.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
 
 
