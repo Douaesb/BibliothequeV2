@@ -1,4 +1,5 @@
-package metier;
+package metier.users;
 
 public abstract class Utilisateur {
+
 }

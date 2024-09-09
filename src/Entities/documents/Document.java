@@ -1,4 +1,4 @@
-package metier;
+package Entities.documents;
 
 import utilitaire.DateUtils;
 
@@ -6,12 +6,15 @@ import java.time.LocalDate;
 
 
 public abstract class Document {
+
+
     protected int id;
     protected String titre;
     protected String auteur;
     protected LocalDate datePublication;
     protected int nombreDePages;
-    protected boolean estEmprunte;
+
+
     // Constructeur de la classe Document
     public Document(int id, String titre, String auteur, LocalDate datePublication, int nombreDePages) {
         this.id = id;
@@ -19,19 +22,9 @@ public abstract class Document {
         this.auteur = auteur;
         this.datePublication = datePublication;
         this.nombreDePages = nombreDePages;
-        this.estEmprunte = false;
     }
 
-    // Méthode abstraite pour emprunter un document
-    public abstract boolean emprunter();
 
-    // Méthode abstraite pour retourner un document
-    public abstract boolean retourner();
-
-    // Méthode abstraite pour afficher les détails du document
-    public abstract void afficherDetails();
-
-    // Getters pour les attributs de base
     public int getId() {
         return id;
     }
@@ -47,6 +40,7 @@ public abstract class Document {
     public LocalDate getDatePublication() {
         return datePublication;
     }
+
     public String getFormattedDatePublication() {
         return DateUtils.formatDate(datePublication);
     }
@@ -54,4 +48,24 @@ public abstract class Document {
     public int getNombreDePages() {
         return nombreDePages;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public void setAuteur(String auteur) {
+        this.auteur = auteur;
+    }
+
+    public void setDatePublication(LocalDate datePublication) {
+        this.datePublication = datePublication;
+    }
+
+    //public abstract void afficherDetails();
+
+
 }
