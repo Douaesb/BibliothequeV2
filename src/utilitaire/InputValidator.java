@@ -20,4 +20,12 @@ public class InputValidator {
     public static boolean isValidCIN(String cin) {
         return cin.matches("[A-Z]\\d{6}");
     }
+
+    public static boolean isValidTitre(String titre) {
+        return titre != null && !titre.trim().isEmpty();
+    }
+
+    public static boolean isValidAuteur(String auteur) {
+        return auteur != null && !auteur.trim().isEmpty();
+    }
 }
