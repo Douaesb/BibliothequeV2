@@ -76,4 +76,18 @@ public class UtilisateurService {
         etudiantDao.deleteUser(utilisateurId);
         professeurDao.deleteUser(utilisateurId);
     }
+
+    public int checkUserType(String email) {
+        if (etudiantDao.emailExists(email)) {
+            return 1; // Étudiant
+        }
+        if (professeurDao.emailExists(email)) {
+            return 2; // Professeur
+        }
+        if (email.equalsIgnoreCase("admin@bibliotheque.com")) {
+            return 3; // Admin
+        }
+        return -1;
+    }
+
 }

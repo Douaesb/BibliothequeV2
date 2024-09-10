@@ -122,6 +122,20 @@ public class EtudiantDaoImpl implements UtilisateurDao {
         }
     }
 
+    @Override
+
+    public boolean emailExists(String email) {
+        String sql = "SELECT 1 FROM etudiant WHERE email = ?";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next(); // Retourne true si l'email existe
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la vérification de l'email : " + e.getMessage());
+            return false;
+        }
+    }
+
 
 
 

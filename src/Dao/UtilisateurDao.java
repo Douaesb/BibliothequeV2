@@ -16,4 +16,5 @@ public interface UtilisateurDao {
     void deleteUser(int id);
 
 //    Utilisateur findUserById(int id);
+    boolean emailExists(String email);
 }
