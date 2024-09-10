@@ -72,7 +72,7 @@ public class MagazineDaoImpl implements DocumentDao {
                 System.out.println("Auteur: " + resultSet.getString("auteur"));
                 System.out.println("Date de publication: " + resultSet.getDate("datePublication").toLocalDate());
                 System.out.println("Nombre de pages: " + resultSet.getInt("nombreDePages"));
-                System.out.println("Numéro: " + resultSet.getString("numero"));
+                System.out.println("Numéro: " + resultSet.getInt("numero"));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -133,7 +133,7 @@ public class MagazineDaoImpl implements DocumentDao {
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
                         resultSet.getInt("nombreDePages"),
-                        resultSet.getString("numero")
+                        resultSet.getInt("numero")
                 );
                 magazines.add(magazine);
             }
