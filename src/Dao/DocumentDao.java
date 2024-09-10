@@ -17,4 +17,9 @@ public interface DocumentDao {
     void deleteDocument(int documentId);
 
     List<Document> searchDocument(String titre);
+
+      Document getDocumentById(int id);
+//
+//    List<Document> getAllDocuments();
+
 }

@@ -74,20 +74,21 @@ public class DocumentService {
         return daos;
     }
 
+
     public void displayDocument(int documentId) {
         for (DocumentDao dao : getAllDaos()) {
             dao.displayDocument(documentId);
         }
     }
 
-    public void displayAllDocuments() {
+    public List<Document> displayAllDocuments() {
+        List<Document> allDocuments = new ArrayList<>();
         for (DocumentDao dao : getAllDaos()) {
-            List<Document> documents = dao.displayAllDocuments();
-            for (Document doc : documents) {
-                System.out.println(doc);
-            }
+            allDocuments.addAll(dao.displayAllDocuments());
         }
+        return allDocuments;
     }
+
 
     public List<Document> searchDocument(String titre) {
         List<Document> result = new ArrayList<>();
@@ -102,6 +103,17 @@ public class DocumentService {
             dao.deleteDocument(documentId);
         }
     }
+
+    public Document getDocumentById(int documentId) {
+        for (DocumentDao dao : getAllDaos()) {
+            Document document = dao.getDocumentById(documentId);
+            if (document != null) {
+                return document;
+            }
+        }
+        return null;
+    }
+
 
 
 }

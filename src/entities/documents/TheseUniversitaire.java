@@ -6,7 +6,11 @@ public class TheseUniversitaire extends Document {
 
     private String university;
 
-    public TheseUniversitaire(int id, String titre, String auteur, LocalDate datePublication, int nombreDePages, String university) {
+    public TheseUniversitaire( String titre, String auteur, LocalDate datePublication, int nombreDePages, String university) {
+        super( titre, auteur, datePublication, nombreDePages);
+        this.university = university;
+    }
+    public TheseUniversitaire( int id,String titre, String auteur, LocalDate datePublication, int nombreDePages, String university) {
         super(id, titre, auteur, datePublication, nombreDePages);
         this.university = university;
     }

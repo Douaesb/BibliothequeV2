@@ -89,7 +89,7 @@ public class MagazineDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 Magazine magazine = new Magazine(
-                        resultSet.getInt("id"),
+                       // resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -128,7 +128,7 @@ public class MagazineDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 Magazine magazine = new Magazine(
-                        resultSet.getInt("id"),
+                        // resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -141,5 +141,31 @@ public class MagazineDaoImpl implements DocumentDao {
             System.out.println(e.getMessage());
         }
         return magazines;
+    }
+
+    @Override
+    public Magazine getDocumentById(int id) {
+        Magazine magazine = null;
+        String query = "SELECT * FROM magazine WHERE id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                magazine = new Magazine(
+                        //rs.getInt("id"),
+                        rs.getString("titre"),
+                        rs.getString("auteur"),
+                        rs.getDate("datePublication").toLocalDate(),
+                        rs.getInt("nombreDePages"),
+                        rs.getInt("numero")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return magazine;
     }
 }

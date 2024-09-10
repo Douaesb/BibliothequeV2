@@ -4,6 +4,7 @@ import DB.DatabaseConnection;
 import Dao.DocumentDao;
 import entities.documents.Document;
 import entities.documents.JournalScientifique;
+import entities.documents.Livre;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -89,7 +90,7 @@ public class JournalScientifiqueDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 JournalScientifique journal = new JournalScientifique(
-                        resultSet.getInt("id"),
+                       // resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -128,7 +129,7 @@ public class JournalScientifiqueDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 JournalScientifique journal = new JournalScientifique(
-                        resultSet.getInt("id"),
+                       // resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -141,5 +142,31 @@ public class JournalScientifiqueDaoImpl implements DocumentDao {
             System.out.println(e.getMessage());
         }
         return journaux;
+    }
+
+    @Override
+    public JournalScientifique getDocumentById(int id) {
+        JournalScientifique journal = null;
+        String query = "SELECT * FROM journal_scientifique WHERE id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                journal = new JournalScientifique(
+                        //rs.getInt("id"),
+                        rs.getString("titre"),
+                        rs.getString("auteur"),
+                        rs.getDate("datePublication").toLocalDate(),
+                        rs.getInt("nombreDePages"),
+                        rs.getString("domaineRecherche")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return journal;
     }
 }

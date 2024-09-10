@@ -7,8 +7,13 @@ public class Livre extends Document{
     private String isbn;
 
     // Constructeur pour initialiser les attributs de Livre
+    public Livre( String titre, String auteur, LocalDate datePublication, int nombreDePages, String isbn) {
+        super( titre, auteur, datePublication, nombreDePages);
+        this.isbn = isbn;
+    }
+
     public Livre(int id, String titre, String auteur, LocalDate datePublication, int nombreDePages, String isbn) {
-        super(id, titre, auteur, datePublication, nombreDePages);
+        super( id,titre, auteur, datePublication, nombreDePages);
         this.isbn = isbn;
     }
 

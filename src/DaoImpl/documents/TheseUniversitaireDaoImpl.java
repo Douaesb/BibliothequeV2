@@ -89,7 +89,7 @@ public class TheseUniversitaireDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 TheseUniversitaire these = new TheseUniversitaire(
-                        resultSet.getInt("id"),
+                        //resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -128,7 +128,7 @@ public class TheseUniversitaireDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 TheseUniversitaire these = new TheseUniversitaire(
-                        resultSet.getInt("id"),
+                       // resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -141,5 +141,31 @@ public class TheseUniversitaireDaoImpl implements DocumentDao {
             System.out.println(e.getMessage());
         }
         return theses;
+    }
+
+    @Override
+    public TheseUniversitaire getDocumentById(int id) {
+        TheseUniversitaire these = null;
+        String query = "SELECT * FROM these_universitaire WHERE id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                these = new TheseUniversitaire(
+                        //rs.getInt("id"),
+                        rs.getString("titre"),
+                        rs.getString("auteur"),
+                        rs.getDate("datePublication").toLocalDate(),
+                        rs.getInt("nombreDePages"),
+                        rs.getString("university")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return these;
     }
 }

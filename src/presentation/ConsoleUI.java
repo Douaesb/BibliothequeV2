@@ -11,7 +11,7 @@ public class ConsoleUI {
     private Scanner scanner = new Scanner(System.in);
     private DocumentService documentService = new DocumentService();
     private UtilisateurService utilisateurService = new UtilisateurService();
-    private static final String ADMIN_SECRET_CODE = "adminSecret";
+    private DocumentUI DocumentUI = new DocumentUI(documentService);
 
     public void start() {
         System.out.println("=== Système de Gestion de Bibliothèque ===");
@@ -154,14 +154,14 @@ public class ConsoleUI {
             System.out.println("5. Modifier un document");
             System.out.println("6. Supprimer un document");
             System.out.println("7. Afficher tous les utilisateurs et documents");
-            System.out.println("8. Se déconnecter");
+            System.out.println("8. Afficher tous les documents");
+            System.out.println("9. Se déconnecter");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Clear buffer
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    // Appel à la méthode ajouter un utilisateur
                     ajouterUtilisateur();
                     break;
                 case 2:
@@ -171,24 +171,27 @@ public class ConsoleUI {
                     supprimerUtilisateur();
                     break;
                 case 4:
-                    ajouterDocument();
+                    DocumentUI.addDocument();
                     break;
                 case 5:
-                    modifierDocument();
+                    DocumentUI.editDocument();
                     break;
                 case 6:
-                    supprimerDocument();
+                    DocumentUI.deleteDocument();
                     break;
                 case 7:
-                    afficherTousLesUtilisateursEtDocuments();
+                    afficherTousLesUtilisateurs();
                     break;
                 case 8:
+                    DocumentUI.displayAllDocuments();
+                    break;
+                case 9:
                     System.out.println("Déconnexion...");
                     break;
                 default:
                     System.out.println("Option invalide. Veuillez réessayer.");
             }
-        } while (choice != 8);
+        } while (choice != 9);
     }
 
     // Méthodes spécifiques pour chaque action
@@ -236,19 +239,9 @@ public class ConsoleUI {
         // Méthode pour supprimer un utilisateur (admin seulement)
     }
 
-    private void ajouterDocument() {
-        // Méthode pour ajouter un document (admin seulement)
+
+
+    private void afficherTousLesUtilisateurs() {
     }
 
-    private void modifierDocument() {
-        // Méthode pour modifier un document (admin seulement)
-    }
-
-    private void supprimerDocument() {
-        // Méthode pour supprimer un document (admin seulement)
-    }
-
-    private void afficherTousLesUtilisateursEtDocuments() {
-        // Méthode pour afficher tous les utilisateurs et documents (admin seulement)
-    }
 }

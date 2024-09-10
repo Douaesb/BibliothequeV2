@@ -16,8 +16,16 @@ public abstract class Document {
 
 
     // Constructeur de la classe Document
-    public Document(int id, String titre, String auteur, LocalDate datePublication, int nombreDePages) {
+
+    public Document( int id, String titre, String auteur, LocalDate datePublication, int nombreDePages) {
         this.id = id;
+        this.titre = titre;
+        this.auteur = auteur;
+        this.datePublication = datePublication;
+        this.nombreDePages = nombreDePages;
+    }
+
+    public Document( String titre, String auteur, LocalDate datePublication, int nombreDePages) {
         this.titre = titre;
         this.auteur = auteur;
         this.datePublication = datePublication;
@@ -59,6 +67,11 @@ public abstract class Document {
 
     public void setAuteur(String auteur) {
         this.auteur = auteur;
+    }
+
+
+    public void setNombreDePages(int nombreDePages) {
+        this.nombreDePages = nombreDePages;
     }
 
     public void setDatePublication(LocalDate datePublication) {

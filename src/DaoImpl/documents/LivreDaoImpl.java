@@ -42,8 +42,11 @@ public class LivreDaoImpl implements DocumentDao {
 
     @Override
     public void editDocument(Document document) {
+        System.out.println("enter here");
+
         Livre livre = (Livre) document;
         String sql = "UPDATE livre SET titre = ?, auteur = ?, datePublication = ?, nombreDePages = ?, isbn = ? WHERE id = ?";
+        System.out.println("query here");
 
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, livre.getTitre());
@@ -52,8 +55,13 @@ public class LivreDaoImpl implements DocumentDao {
             statement.setInt(4, livre.getNombreDePages());
             statement.setString(5, livre.getIsbn());
             statement.setInt(6, livre.getId());
+            System.out.println("ID du document à modifier: " + livre.getId());
 
-            statement.executeUpdate();
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Nombre de lignes affectées: " + rowsAffected);
+
+            System.out.println("execcccuuutteeeddddd"+(statement.executeUpdate()));
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -131,7 +139,7 @@ public class LivreDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 Livre livre = new Livre(
-                        resultSet.getInt("id"),
+                       resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -145,4 +153,31 @@ public class LivreDaoImpl implements DocumentDao {
         }
         return livres;
     }
+
+    @Override
+    public Livre getDocumentById(int id) {
+        Livre livre = null;
+        String query = "SELECT * FROM livre WHERE id = ?";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                livre = new Livre(
+                        rs.getInt("id"),
+                        rs.getString("titre"),
+                        rs.getString("auteur"),
+                        rs.getDate("datePublication").toLocalDate(),
+                        rs.getInt("nombreDePages"),
+                        rs.getString("isbn")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return livre;
+    }
+
 }
