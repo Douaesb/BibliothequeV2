@@ -186,7 +186,8 @@ public class ConsoleUI {
             System.out.println("3. Supprimer un document");
             System.out.println("4. Afficher tous les documents");
             System.out.println("5. Afficher un document");
-            System.out.println("6. Retour au menu principal");
+            System.out.println("6. Rechercher un document");
+            System.out.println("7. Retour au menu principal");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -208,12 +209,15 @@ public class ConsoleUI {
                     DocumentUI.displayDocument();
                     break;
                 case 6:
+                    DocumentUI.searchDocument();
+                    break;
+                case 7:
                     System.out.println("Retour au menu principal...");
                     break;
                 default:
                     System.out.println("Option invalide. Veuillez réessayer.");
             }
-        } while (choice != 6);
+        } while (choice != 7);
     }
 
 
