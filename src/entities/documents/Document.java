@@ -32,6 +32,8 @@ public abstract class Document {
         this.nombreDePages = nombreDePages;
     }
 
+    public Document() {};
+
 
     public int getId() {
         return id;

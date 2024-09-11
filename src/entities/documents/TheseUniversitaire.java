@@ -15,6 +15,8 @@ public class TheseUniversitaire extends Document {
         this.university = university;
     }
 
+    public TheseUniversitaire(){};
+
     public String getUniversity(){
         return university;
     }

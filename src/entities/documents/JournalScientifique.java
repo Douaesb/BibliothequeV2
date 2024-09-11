@@ -16,6 +16,8 @@ public class JournalScientifique extends Document {
         this.domaineRecherche = domaineRecherche;
     }
 
+    public JournalScientifique(){};
+
     public String getDomaineRecherche(){
         return domaineRecherche;
     }

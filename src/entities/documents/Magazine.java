@@ -17,6 +17,8 @@ public class Magazine extends Document {
         this.numero = numero;
     }
 
+    public Magazine(){};
+
     // Getter pour l'attribut numéro
     public int getNumero() {
         return numero;

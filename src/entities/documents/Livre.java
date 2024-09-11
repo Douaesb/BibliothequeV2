@@ -17,6 +17,8 @@ public class Livre extends Document{
         this.isbn = isbn;
     }
 
+    public Livre(){};
+
 
     // Getter pour l'attribut ISBN
     public String getIsbn() {
