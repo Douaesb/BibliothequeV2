@@ -142,24 +142,18 @@ public class ConsoleUI {
             }
         } while (choice != 6);
     }
-
-    private void displayAdminMenu() {
+    private void displayUserManagementMenu() {
         int choice;
         do {
-            System.out.println("\n=== Menu Administrateur ===");
+            System.out.println("\n=== Gestion des Utilisateurs ===");
             System.out.println("1. Ajouter un utilisateur");
             System.out.println("2. Modifier un utilisateur");
             System.out.println("3. Supprimer un utilisateur");
-            System.out.println("4. Ajouter un document");
-            System.out.println("5. Modifier un document");
-            System.out.println("6. Supprimer un document");
-            System.out.println("7. Afficher tous les utilisateurs");
-            System.out.println("8. Afficher tous les documents");
-            System.out.println("9. Afficher un document");
-            System.out.println("10. Se déconnecter");
+            System.out.println("4. Afficher tous les utilisateurs");
+            System.out.println("5. Retour au menu principal");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine();  // Consume newline
 
             switch (choice) {
                 case 1:
@@ -172,30 +166,82 @@ public class ConsoleUI {
                     supprimerUtilisateur();
                     break;
                 case 4:
-                    DocumentUI.addDocument();
-                    break;
-                case 5:
-                    DocumentUI.editDocument();
-                    break;
-                case 6:
-                    DocumentUI.deleteDocument();
-                    break;
-                case 7:
                     afficherTousLesUtilisateurs();
                     break;
-                case 8:
+                case 5:
+                    System.out.println("Retour au menu principal...");
+                    break;
+                default:
+                    System.out.println("Option invalide. Veuillez réessayer.");
+            }
+        } while (choice != 5);
+    }
+
+    private void displayDocumentManagementMenu() {
+        int choice;
+        do {
+            System.out.println("\n=== Gestion des Documents ===");
+            System.out.println("1. Ajouter un document");
+            System.out.println("2. Modifier un document");
+            System.out.println("3. Supprimer un document");
+            System.out.println("4. Afficher tous les documents");
+            System.out.println("5. Afficher un document");
+            System.out.println("6. Retour au menu principal");
+            System.out.print("Veuillez choisir une option : ");
+            choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    DocumentUI.addDocument();
+                    break;
+                case 2:
+                    DocumentUI.editDocument();
+                    break;
+                case 3:
+                    DocumentUI.deleteDocument();
+                    break;
+                case 4:
                     DocumentUI.displayAllDocuments();
                     break;
-                case 9:
+                case 5:
                     DocumentUI.displayDocument();
                     break;
-                case 10:
+                case 6:
+                    System.out.println("Retour au menu principal...");
+                    break;
+                default:
+                    System.out.println("Option invalide. Veuillez réessayer.");
+            }
+        } while (choice != 6);
+    }
+
+
+    private void displayAdminMenu() {
+        int choice;
+        do {
+            System.out.println("\n=== Menu Principal d'Administrateur ===");
+            System.out.println("1. Gestion des utilisateurs");
+            System.out.println("2. Gestion des documents");
+            System.out.println("3. Se déconnecter");
+            System.out.print("Veuillez choisir une option : ");
+            choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    displayUserManagementMenu();
+                    break;
+                case 2:
+                    displayDocumentManagementMenu();
+                    break;
+                case 3:
                     System.out.println("Déconnexion...");
                     break;
                 default:
                     System.out.println("Option invalide. Veuillez réessayer.");
             }
-        } while (choice != 10);
+        } while (choice != 3);
     }
 
     // Méthodes spécifiques pour chaque action
