@@ -153,7 +153,7 @@ public class ConsoleUI {
             System.out.println("4. Ajouter un document");
             System.out.println("5. Modifier un document");
             System.out.println("6. Supprimer un document");
-            System.out.println("7. Afficher tous les utilisateurs et documents");
+            System.out.println("7. Afficher tous les utilisateurs");
             System.out.println("8. Afficher tous les documents");
             System.out.println("9. Se déconnecter");
             System.out.print("Veuillez choisir une option : ");

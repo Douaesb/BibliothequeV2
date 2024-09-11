@@ -25,4 +25,13 @@ public class Magazine extends Document {
     public void setNumero(int numero) {
         this.numero = numero;
     }
+
+    @Override
+    public String toString() {
+        return "Magazine{" +
+                super.toString() +
+                "numero='" + numero + '\'' +
+                "} " ;
+    }
+
 }

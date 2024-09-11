@@ -71,6 +71,7 @@ public class DocumentService {
         daos.add(magazineDao);
         daos.add(theseUniversitaireDao);
         daos.add(journalScientifiqueDao);
+        //System.out.println("here daos"+daos);
         return daos;
     }
 

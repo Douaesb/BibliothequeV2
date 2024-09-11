@@ -27,4 +27,13 @@ public class Livre extends Document{
         this.isbn = isbn;
     }
 
+    @Override
+    public String toString() {
+        return "Livre{" +
+                 super.toString() +
+                "isbn='" + isbn + '\'' +
+                "} " ;
+    }
+
+
 }

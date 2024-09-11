@@ -80,5 +80,15 @@ public abstract class Document {
 
     //public abstract void afficherDetails();
 
+    @Override
+    public String toString() {
+        return
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", auteur='" + auteur + '\'' +
+                ", datePublication=" + datePublication +
+                ", nombreDePages=" + nombreDePages + ", " ;
+
+    }
 
 }

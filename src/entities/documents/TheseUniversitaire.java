@@ -22,4 +22,14 @@ public class TheseUniversitaire extends Document {
         this.university = university;
     }
 
+
+    @Override
+    public String toString() {
+        return " These Universitaire{" +
+                super.toString() +
+                "university='" + university + '\'' +
+                "} " ;
+    }
+
+
 }

@@ -23,4 +23,13 @@ public class JournalScientifique extends Document {
     public void setDomaineRecherche(String domaineRecherche) {
         this.domaineRecherche = domaineRecherche;
     }
+
+    @Override
+    public String toString() {
+        return "Journal Scientifique{" +
+                super.toString() +
+                "domaineRecherche='" + domaineRecherche + '\'' +
+                "} " ;
+    }
+
 }

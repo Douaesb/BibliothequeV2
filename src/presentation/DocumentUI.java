@@ -128,7 +128,6 @@ public class DocumentUI {
         displayDocumentInfo(document);
 
         documentService.editDocument(document);
-        System.out.println("modifiééééééé");
     }
 
     private void displayDocumentInfo(Document document) {
