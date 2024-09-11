@@ -84,10 +84,18 @@ public class UtilisateurService {
         if (professeurDao.emailExists(email)) {
             return 2; // Professeur
         }
-        if (email.equalsIgnoreCase("admin@bibliotheque.com")) {
-            return 3; // Admin
-        }
         return -1;
     }
+
+    public Utilisateur getUtilisateurById(int id) {
+        Utilisateur utilisateur = etudiantDao.getUserById(id);  // Essayer de récupérer l'étudiant
+        if (utilisateur != null) {
+            return utilisateur;
+        }
+
+        utilisateur = professeurDao.getUserById(id);  // Si l'utilisateur n'est pas un étudiant, essayer avec le professeur
+        return utilisateur;
+    }
+
 
 }

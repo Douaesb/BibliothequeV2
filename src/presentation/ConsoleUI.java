@@ -12,6 +12,7 @@ public class ConsoleUI {
     private DocumentService documentService = new DocumentService();
     private UtilisateurService utilisateurService = new UtilisateurService();
     private DocumentUI DocumentUI = new DocumentUI(documentService);
+    private UserUI UserUI = new UserUI(utilisateurService);
 
     public void start() {
         System.out.println("=== Système de Gestion de Bibliothèque ===");
@@ -142,6 +143,7 @@ public class ConsoleUI {
             }
         } while (choice != 6);
     }
+
     private void displayUserManagementMenu() {
         int choice;
         do {
@@ -150,31 +152,35 @@ public class ConsoleUI {
             System.out.println("2. Modifier un utilisateur");
             System.out.println("3. Supprimer un utilisateur");
             System.out.println("4. Afficher tous les utilisateurs");
-            System.out.println("5. Retour au menu principal");
+            System.out.println("5. Afficher un utilisateur");
+            System.out.println("6. Retour au menu principal");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    ajouterUtilisateur();
+                    UserUI.addUtilisateur();
                     break;
                 case 2:
-                    modifierUtilisateur();
+                    UserUI.editUtilisateur();
                     break;
                 case 3:
-                    supprimerUtilisateur();
+                    UserUI.deleteUtilisateur();
                     break;
                 case 4:
-                    afficherTousLesUtilisateurs();
+                    UserUI.displayAllUsers();
                     break;
                 case 5:
+                    UserUI.displayUtilisateur();
+                    break;
+                case 6:
                     System.out.println("Retour au menu principal...");
                     break;
                 default:
                     System.out.println("Option invalide. Veuillez réessayer.");
             }
-        } while (choice != 5);
+        } while (choice != 6);
     }
 
     private void displayDocumentManagementMenu() {
@@ -292,7 +298,6 @@ public class ConsoleUI {
     private void supprimerUtilisateur() {
         // Méthode pour supprimer un utilisateur (admin seulement)
     }
-
 
 
     private void afficherTousLesUtilisateurs() {

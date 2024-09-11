@@ -66,26 +66,23 @@ public class EtudiantDaoImpl implements UtilisateurDao {
     }
 
     @Override
-        public Utilisateur displayUser(int id){
-            Etudiant etudiant = null;
+        public void displayUser(int id){
+
             String sql = "SELECT * FROM etudiant WHERE id = ?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1,id);
-            ResultSet res = pstmt.executeQuery();
-            if(res.next()){
-                etudiant = new Etudiant(
-                        res.getInt("id"),
-                        res.getString("name"),
-                        res.getInt("age"),
-                        res.getString("email"),
-                        res.getString("CNE")
-                );
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                System.out.println("ID: " + resultSet.getInt("id"));
+                System.out.println("Nom: " + resultSet.getString("name"));
+                System.out.println("Email: " + resultSet.getString("email"));
+                System.out.println("Age: " + resultSet.getInt("age"));
+                System.out.println("CNE: " + resultSet.getString("cne"));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return etudiant;
     }
 
     @Override
@@ -112,11 +109,13 @@ public class EtudiantDaoImpl implements UtilisateurDao {
 
     @Override
     public void deleteUser(int id){
-        String sql = "DELETE * FROM etudiant WHERE id = ?";
+
+        String sql = "DELETE FROM etudiant WHERE id = ?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1,id);
             pstmt.executeUpdate();
+            System.out.println();
         }catch(SQLException e){
             System.out.println(e.getMessage());
         }
@@ -134,6 +133,31 @@ public class EtudiantDaoImpl implements UtilisateurDao {
             System.out.println("Erreur lors de la vérification de l'email : " + e.getMessage());
             return false;
         }
+    }
+
+    @Override
+    public Utilisateur getUserById(int id) {
+        Utilisateur etudiant = null;
+        String sql = "SELECT * FROM etudiant WHERE id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                etudiant = new Etudiant();
+                etudiant.setId(resultSet.getInt("id"));
+                etudiant.setName(resultSet.getString("name"));
+                etudiant.setEmail(resultSet.getString("email"));
+                etudiant.setAge(resultSet.getInt("age"));
+                ((Etudiant) etudiant).setCNE(resultSet.getString("cne"));  // CNE spécifique à l'étudiant
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération de l'étudiant : " + e.getMessage());
+        }
+
+        return etudiant;
     }
 
 

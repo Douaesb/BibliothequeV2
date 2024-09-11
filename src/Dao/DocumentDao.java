@@ -19,7 +19,5 @@ public interface DocumentDao {
     List<Document> searchDocument(String titre);
 
       Document getDocumentById(int id);
-//
-//    List<Document> getAllDocuments();
 
 }

@@ -14,6 +14,16 @@ public class Utilisateur {
         this.email = email;
     }
 
+    public Utilisateur(String name, int age, String email){
+        this.name = name;
+        this.age = age;
+        this.email = email;
+    }
+
+    public Utilisateur(){
+
+    }
+
     public int getId(){
         return id;
     }
@@ -44,6 +54,17 @@ public class Utilisateur {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    @Override
+    public String toString() {
+        return
+                "ID: " + getId() +
+                ", Name: " + getName() +
+                ", Email: " + getEmail() +
+                ", Age: " + getAge() + ", "
+                ;
     }
 
 

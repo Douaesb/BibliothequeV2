@@ -9,7 +9,7 @@ public interface UtilisateurDao {
 
     void editUser(Utilisateur utilisateur);
 
-    Utilisateur displayUser(int id);
+    void displayUser(int id);
 
     List<Utilisateur> displayAllUsers();
 
@@ -17,4 +17,7 @@ public interface UtilisateurDao {
 
 //    Utilisateur findUserById(int id);
     boolean emailExists(String email);
+
+    Utilisateur getUserById(int id);
+
 }

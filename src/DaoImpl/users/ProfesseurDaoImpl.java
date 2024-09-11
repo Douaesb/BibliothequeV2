@@ -66,26 +66,23 @@ public class ProfesseurDaoImpl implements UtilisateurDao {
     }
 
     @Override
-    public Utilisateur displayUser(int id){
-        Professeur professeur = null;
+    public void displayUser(int id){
+
         String sql = "SELECT * FROM professeur WHERE id = ?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1,id);
-            ResultSet res = pstmt.executeQuery();
-            if(res.next()){
-                professeur = new Professeur(
-                        res.getInt("id"),
-                        res.getString("name"),
-                        res.getInt("age"),
-                        res.getString("email"),
-                        res.getString("CIN")
-                );
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                System.out.println("ID: " + resultSet.getInt("id"));
+                System.out.println("Nom: " + resultSet.getString("name"));
+                System.out.println("Email: " + resultSet.getString("email"));
+                System.out.println("Age: " + resultSet.getInt("age"));
+                System.out.println("CIN: " + resultSet.getString("cin"));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return professeur;
     }
 
     @Override
@@ -112,7 +109,7 @@ public class ProfesseurDaoImpl implements UtilisateurDao {
 
     @Override
     public void deleteUser(int id){
-        String sql = "DELETE * FROM professeur WHERE id = ?";
+        String sql = "DELETE FROM professeur WHERE id = ?";
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1,id);
@@ -135,6 +132,32 @@ public class ProfesseurDaoImpl implements UtilisateurDao {
             return false;
         }
     }
+
+    @Override
+    public Utilisateur getUserById(int id) {
+        Utilisateur professeur = null;
+        String sql = "SELECT * FROM professeur WHERE id = ?";
+
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                professeur = new Professeur();
+                professeur.setId(resultSet.getInt("id"));
+                professeur.setName(resultSet.getString("name"));
+                professeur.setEmail(resultSet.getString("email"));
+                professeur.setAge(resultSet.getInt("age"));
+                ((Professeur) professeur).setCIN(resultSet.getString("cin"));  // CIN spécifique au professeur
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de la récupération du professeur : " + e.getMessage());
+        }
+
+        return professeur;
+    }
+
 
 
 
