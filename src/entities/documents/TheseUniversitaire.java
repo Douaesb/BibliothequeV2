@@ -27,7 +27,7 @@ public class TheseUniversitaire extends Document {
 
     @Override
     public String toString() {
-        return " These Universitaire{" +
+        return "These Universitaire{" +
                 super.toString() +
                 "university='" + university + '\'' +
                 "} " ;

@@ -155,7 +155,8 @@ public class ConsoleUI {
             System.out.println("6. Supprimer un document");
             System.out.println("7. Afficher tous les utilisateurs");
             System.out.println("8. Afficher tous les documents");
-            System.out.println("9. Se déconnecter");
+            System.out.println("9. Afficher un document");
+            System.out.println("10. Se déconnecter");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -186,12 +187,15 @@ public class ConsoleUI {
                     DocumentUI.displayAllDocuments();
                     break;
                 case 9:
+                    DocumentUI.displayDocument();
+                    break;
+                case 10:
                     System.out.println("Déconnexion...");
                     break;
                 default:
                     System.out.println("Option invalide. Veuillez réessayer.");
             }
-        } while (choice != 9);
+        } while (choice != 10);
     }
 
     // Méthodes spécifiques pour chaque action

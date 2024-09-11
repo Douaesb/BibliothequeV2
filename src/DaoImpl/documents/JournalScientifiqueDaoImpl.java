@@ -90,7 +90,7 @@ public class JournalScientifiqueDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 JournalScientifique journal = new JournalScientifique(
-                       // resultSet.getInt("id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -129,7 +129,7 @@ public class JournalScientifiqueDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 JournalScientifique journal = new JournalScientifique(
-                       // resultSet.getInt("id"),
+                       resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -155,7 +155,7 @@ public class JournalScientifiqueDaoImpl implements DocumentDao {
 
             if (rs.next()) {
                 journal = new JournalScientifique(
-                        //rs.getInt("id"),
+                        rs.getInt("id"),
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getDate("datePublication").toLocalDate(),

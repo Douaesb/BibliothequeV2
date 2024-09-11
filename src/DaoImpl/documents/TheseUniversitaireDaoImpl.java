@@ -89,7 +89,7 @@ public class TheseUniversitaireDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 TheseUniversitaire these = new TheseUniversitaire(
-                        //resultSet.getInt("id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -128,7 +128,7 @@ public class TheseUniversitaireDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 TheseUniversitaire these = new TheseUniversitaire(
-                       // resultSet.getInt("id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -154,7 +154,7 @@ public class TheseUniversitaireDaoImpl implements DocumentDao {
 
             if (rs.next()) {
                 these = new TheseUniversitaire(
-                        //rs.getInt("id"),
+                        rs.getInt("id"),
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getDate("datePublication").toLocalDate(),

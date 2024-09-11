@@ -20,7 +20,7 @@ public class DocumentUI {
 
     public void addDocument() {
         System.out.println("=== Ajouter un Document ===");
-        System.out.print("Type de document (Livre, Magazine, ThèseUniversitaire, JournalScientifique) : ");
+        System.out.print("Type de document (entrer un nombre) (1:Livre, 2:Magazine, 3:ThèseUniversitaire, 4:JournalScientifique) : ");
         String type = scanner.nextLine();
         Document document = null;
 
@@ -36,23 +36,23 @@ public class DocumentUI {
         scanner.nextLine();  // Consomme la nouvelle ligne après l'entier
 
         switch (type.toLowerCase()) {
-            case "livre":
+            case "1":
                 System.out.print("ISBN : ");
                 String isbn = scanner.nextLine();
                 document = new Livre(titre, auteur, datePublication, nombreDePages, isbn);
                 break;
-            case "magazine":
+            case "2":
                 System.out.print("Numéro : ");
                 int numero = scanner.nextInt();
                 scanner.nextLine();  // Consomme la nouvelle ligne après l'entier
                 document = new Magazine(titre, auteur, datePublication, nombreDePages, numero);
                 break;
-            case "thèseuniversitaire":
+            case "3":
                 System.out.print("Université : ");
                 String university = scanner.nextLine();
                 document = new TheseUniversitaire(titre, auteur, datePublication, nombreDePages, university);
                 break;
-            case "journalscientifique":
+            case "4":
                 System.out.print("Domaine de recherche : ");
                 String domaineRecherche = scanner.nextLine();
                 document = new JournalScientifique(titre, auteur, datePublication, nombreDePages, domaineRecherche);

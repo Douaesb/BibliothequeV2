@@ -89,7 +89,7 @@ public class MagazineDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 Magazine magazine = new Magazine(
-                       // resultSet.getInt("id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -128,7 +128,7 @@ public class MagazineDaoImpl implements DocumentDao {
 
             while (resultSet.next()) {
                 Magazine magazine = new Magazine(
-                        // resultSet.getInt("id"),
+                         resultSet.getInt("id"),
                         resultSet.getString("titre"),
                         resultSet.getString("auteur"),
                         resultSet.getDate("datePublication").toLocalDate(),
@@ -154,7 +154,7 @@ public class MagazineDaoImpl implements DocumentDao {
 
             if (rs.next()) {
                 magazine = new Magazine(
-                        //rs.getInt("id"),
+                        rs.getInt("id"),
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getDate("datePublication").toLocalDate(),
