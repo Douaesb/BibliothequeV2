@@ -76,11 +76,11 @@ public class DocumentService {
     }
 
 
-    public void displayDocument(int documentId) {
-        for (DocumentDao dao : getAllDaos()) {
-            dao.displayDocument(documentId);
-        }
-    }
+   // public void displayDocument(int documentId) {
+//        for (DocumentDao dao : getAllDaos()) {
+//            dao.displayDocument(documentId);
+//        }
+//    }
 
     public List<Document> displayAllDocuments() {
         List<Document> allDocuments = new ArrayList<>();

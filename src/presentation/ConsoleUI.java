@@ -1,6 +1,7 @@
 package presentation;
 
 import service.DocumentService;
+import service.EmpruntService;
 import service.UtilisateurService;
 import utilitaire.InputValidator;
 
@@ -11,8 +12,11 @@ public class ConsoleUI {
     private Scanner scanner = new Scanner(System.in);
     private DocumentService documentService = new DocumentService();
     private UtilisateurService utilisateurService = new UtilisateurService();
+    private EmpruntService empruntService = new EmpruntService();
+
     private DocumentUI DocumentUI = new DocumentUI(documentService);
     private UserUI UserUI = new UserUI(utilisateurService);
+    private EmpruntUI EmpruntUI = new EmpruntUI(empruntService);
 
     public void start() {
         System.out.println("=== Système de Gestion de Bibliothèque ===");
@@ -65,11 +69,11 @@ public class ConsoleUI {
         int choice;
         do {
             System.out.println("\n=== Menu Étudiant ===");
-            System.out.println("1. Emprunter un livre ou un magazine");
-            System.out.println("2. Réserver un livre ou un magazine");
-            System.out.println("3. Afficher les documents disponibles (Livres et Magazines)");
-            System.out.println("4. Voir mes emprunts et réservations");
-            System.out.println("5. Retourner un livre / Annuler une réservation");
+            System.out.println("1. Emprunter un livre ou une magazine");
+            System.out.println("2. Retourner un livre");
+            System.out.println("3. Réserver un livre ou une magazine");
+            System.out.println("4. Annuler une réservation");
+            System.out.println("5. Réserver un livre ou une magazine");
             System.out.println("6. Se déconnecter");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
@@ -77,12 +81,10 @@ public class ConsoleUI {
 
             switch (choice) {
                 case 1:
-                    // Appel à la méthode emprunt pour les étudiants
-                    emprunterLivreOuMagazine(email);
+                   EmpruntUI.borrowDocument();
                     break;
                 case 2:
-                    // Appel à la méthode réservation pour les étudiants
-                    reserverLivreOuMagazine(email);
+                    EmpruntUI.returnDocument();
                     break;
                 case 3:
                     // Afficher les livres et magazines disponibles
@@ -287,20 +289,5 @@ public class ConsoleUI {
         // Appel aux services pour retourner une thèse ou annuler une réservation pour un professeur
     }
 
-    private void ajouterUtilisateur() {
-        // Méthode pour ajouter un utilisateur (admin seulement)
-    }
-
-    private void modifierUtilisateur() {
-        // Méthode pour modifier un utilisateur (admin seulement)
-    }
-
-    private void supprimerUtilisateur() {
-        // Méthode pour supprimer un utilisateur (admin seulement)
-    }
-
-
-    private void afficherTousLesUtilisateurs() {
-    }
 
 }
