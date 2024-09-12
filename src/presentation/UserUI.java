@@ -20,11 +20,8 @@ public class UserUI {
 
     public void addUtilisateur() {
         System.out.println("=== Ajouter un Utilisateur ===");
+        System.out.print("Type d'utilisateur (entrer un nombre) (1:Étudiant, 2:Professeur) : ");
 
-        // Choix du type d'utilisateur en premier
-        System.out.println("Type d'utilisateur : ");
-        System.out.println("1. Étudiant");
-        System.out.println("2. Professeur");
         int type = scanner.nextInt();
         scanner.nextLine();  // consommer la nouvelle ligne
 
