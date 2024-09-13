@@ -10,6 +10,7 @@ import utilitaire.InputValidator;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DocumentService {
     private DocumentDao livreDao = new LivreDaoImpl();
@@ -83,29 +84,27 @@ public class DocumentService {
 //        }
 //    }
 
+
     public List<Document> displayAllDocuments() {
-        List<Document> allDocuments = new ArrayList<>();
-        for (DocumentDao dao : getAllDaos()) {
-            allDocuments.addAll(dao.displayAllDocuments());
-        }
-        return allDocuments;
+        return getAllDaos().stream()
+                .flatMap(dao -> dao.displayAllDocuments().stream())
+                .collect(Collectors.toList());
     }
 
 
     public Optional<List<Document>> searchDocument(String titre) {
-        List<Document> result = new ArrayList<>();
-        for (DocumentDao dao : getAllDaos()) {
-            result.addAll(dao.searchDocument(titre));
-        }
+        List<Document> result = getAllDaos().stream()
+                .map(dao -> dao.searchDocument(titre))
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
         return result.isEmpty() ? Optional.empty() : Optional.of(result);
     }
 
 
     public void deleteDocument(int documentId) {
-        for (DocumentDao dao : getAllDaos()) {
-            dao.deleteDocument(documentId);
-        }
+        getAllDaos().forEach(dao -> dao.deleteDocument(documentId));
     }
+
 
     public Optional<Document> getDocumentById(int documentId) {
         for (DocumentDao dao : getAllDaos()) {

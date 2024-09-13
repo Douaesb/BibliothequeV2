@@ -205,9 +205,11 @@ public class DocumentUI {
 
         if (optionalDocuments.isPresent()) {
             List<Document> documents = optionalDocuments.get();
-            for (Document doc : documents) {
-                System.out.println(doc);
-            }
+//            for (Document doc : documents) {
+//                System.out.println(doc);
+//            }
+            documents.forEach(System.out::println);
+
         } else {
             System.out.println("Aucun document trouvé.");
         }
