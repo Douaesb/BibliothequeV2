@@ -9,11 +9,11 @@ import java.time.LocalDate;
 public class EmpruntService {
     private EmpruntDao empruntDao = new EmpruntDaoImpl();
 
-    // Méthode pour emprunter un document
+    // Method to borrow a document
     public boolean borrowDocument(int documentId, int userId) {
         Emprunt activeEmprunt = empruntDao.getActiveEmpruntByDocumentIdAndUserId(documentId, userId);
         if (activeEmprunt != null) {
-            return false; // The document is already borrowed by the user
+            return false; // Document already borrowed by user
         }
 
         // Proceed with borrowing
@@ -22,20 +22,15 @@ public class EmpruntService {
         return true;
     }
 
-    // Méthode pour retourner un document
+    // Method to return a document
     public boolean returnDocument(int documentId, int userId) {
         Emprunt activeEmprunt = empruntDao.getActiveEmpruntByDocumentIdAndUserId(documentId, userId);
         if (activeEmprunt == null) {
             return false; // No active borrowing found
         }
 
-        // Delete the borrowing record (as returning the document)
+        // Delete the borrowing record (return the document)
         empruntDao.deleteEmprunt(activeEmprunt.getId());
         return true;
-    }
-
-    // Méthode pour vérifier si un document est emprunté
-    public boolean isDocumentBorrowed(int documentId) {
-        return empruntDao.isDocumentBorrowed(documentId);
     }
 }

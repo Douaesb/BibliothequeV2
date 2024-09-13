@@ -1,10 +1,14 @@
 package entities.documents;
 
+import service.EmpruntService;
+import service.interfaces.Empruntable;
+
 import java.time.LocalDate;
 
-public class Magazine extends Document {
+public class Magazine extends Document implements Empruntable {
 
     private int numero;
+    private EmpruntService empruntService;
 
     // Constructeur pour initialiser les attributs de Magazine
     public Magazine( String titre, String auteur, LocalDate datePublication, int nombreDePages, int numero) {
@@ -34,6 +38,17 @@ public class Magazine extends Document {
                 super.toString() +
                 "numero='" + numero + '\'' +
                 "} " ;
+    }
+
+
+    @Override
+    public boolean emprunter(int userId) {
+        return empruntService.borrowDocument(this.getId(), userId);
+    }
+
+    @Override
+    public boolean retourner(int userId) {
+        return empruntService.returnDocument(this.getId(), userId);
     }
 
 }

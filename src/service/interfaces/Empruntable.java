@@ -1,6 +1,6 @@
 package service.interfaces;
 
 public interface Empruntable {
-     void emprunter();
-     void retourner();
+     boolean emprunter(int userId);
+     boolean retourner(int userId);
 }

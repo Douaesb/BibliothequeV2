@@ -1,10 +1,14 @@
 package entities.documents;
 
+import service.EmpruntService;
+import service.interfaces.Empruntable;
+
 import java.time.LocalDate;
 
-public class Livre extends Document{
+public class Livre extends Document implements Empruntable {
 
     private String isbn;
+    private EmpruntService empruntService;
 
     // Constructeur pour initialiser les attributs de Livre
     public Livre( String titre, String auteur, LocalDate datePublication, int nombreDePages, String isbn) {
@@ -35,6 +39,16 @@ public class Livre extends Document{
                  super.toString() +
                 "isbn='" + isbn + '\'' +
                 "} " ;
+    }
+
+    @Override
+    public boolean emprunter(int userId) {
+        return empruntService.borrowDocument(this.getId(), userId);
+    }
+
+    @Override
+    public boolean retourner(int userId) {
+        return empruntService.returnDocument(this.getId(), userId);
     }
 
 
