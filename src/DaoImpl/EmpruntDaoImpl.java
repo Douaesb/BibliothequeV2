@@ -59,4 +59,16 @@ public class EmpruntDaoImpl implements EmpruntDao {
             e.printStackTrace();
         }
     }
+
+    public boolean isDocumentBorrowed(int documentId) {
+        String sql = "SELECT * FROM emprunt WHERE document_id = ? AND statut = 'emprunte'";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, documentId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // If a record is found, the document is borrowed
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

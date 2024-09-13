@@ -2,6 +2,7 @@ package presentation;
 
 import service.DocumentService;
 import service.EmpruntService;
+import service.ReservationService;
 import service.UtilisateurService;
 import utilitaire.InputValidator;
 
@@ -13,10 +14,12 @@ public class ConsoleUI {
     private DocumentService documentService = new DocumentService();
     private UtilisateurService utilisateurService = new UtilisateurService();
     private EmpruntService empruntService = new EmpruntService();
+    private ReservationService reservationService = new ReservationService();
 
     private DocumentUI DocumentUI = new DocumentUI(documentService);
     private UserUI UserUI = new UserUI(utilisateurService);
     private EmpruntUI EmpruntUI = new EmpruntUI(empruntService);
+    private ReservationUI ReservationUI = new ReservationUI(reservationService);
 
     public void start() {
         System.out.println("=== Système de Gestion de Bibliothèque ===");
@@ -73,7 +76,7 @@ public class ConsoleUI {
             System.out.println("2. Retourner un livre");
             System.out.println("3. Réserver un livre ou une magazine");
             System.out.println("4. Annuler une réservation");
-            System.out.println("5. Réserver un livre ou une magazine");
+            System.out.println("5. Afficher");
             System.out.println("6. Se déconnecter");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
@@ -87,12 +90,10 @@ public class ConsoleUI {
                     EmpruntUI.returnDocument();
                     break;
                 case 3:
-                    // Afficher les livres et magazines disponibles
-                    afficherDocumentsDisponibles("Etudiant");
+                    ReservationUI.reserveDocument();
                     break;
                 case 4:
-                    // Afficher les emprunts et réservations de l'étudiant
-                    afficherEmpruntsReservations(email);
+                    ReservationUI.cancelReservation();
                     break;
                 case 5:
                     // Retourner un livre ou annuler une réservation
@@ -254,15 +255,6 @@ public class ConsoleUI {
                     System.out.println("Option invalide. Veuillez réessayer.");
             }
         } while (choice != 3);
-    }
-
-    // Méthodes spécifiques pour chaque action
-    private void emprunterLivreOuMagazine(String email) {
-        // Appel aux services pour emprunter un livre ou un magazine pour un étudiant
-    }
-
-    private void reserverLivreOuMagazine(String email) {
-        // Appel aux services pour réserver un livre ou un magazine pour un étudiant
     }
 
     private void afficherDocumentsDisponibles(String userType) {

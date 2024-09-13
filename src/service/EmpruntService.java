@@ -9,7 +9,6 @@ import java.time.LocalDate;
 public class EmpruntService {
     private EmpruntDao empruntDao = new EmpruntDaoImpl();
 
-
     // Méthode pour emprunter un document
     public boolean borrowDocument(int documentId, int userId) {
         Emprunt activeEmprunt = empruntDao.getActiveEmpruntByDocumentIdAndUserId(documentId, userId);
@@ -33,5 +32,10 @@ public class EmpruntService {
         // Delete the borrowing record (as returning the document)
         empruntDao.deleteEmprunt(activeEmprunt.getId());
         return true;
+    }
+
+    // Méthode pour vérifier si un document est emprunté
+    public boolean isDocumentBorrowed(int documentId) {
+        return empruntDao.isDocumentBorrowed(documentId);
     }
 }
