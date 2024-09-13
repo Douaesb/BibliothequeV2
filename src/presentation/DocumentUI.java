@@ -6,6 +6,7 @@ import utilitaire.DateUtils;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class DocumentUI {
@@ -72,17 +73,22 @@ public class DocumentUI {
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        Document document = documentService.getDocumentById(id);
-        if (document == null) {
+        // Fetching the document wrapped in Optional
+        Optional<Document> optionalDocument = documentService.getDocumentById(id);
+
+        // Handle case where document is not found
+        if (!optionalDocument.isPresent()) {
             System.out.println("Document non trouvé.");
             return;
         }
 
-        // Afficher les valeurs initiales
+        Document document = optionalDocument.get();
+
+        // Display old information
         System.out.println("Anciennes informations du document :");
         displayDocumentInfo(document);
 
-        // Saisie des nouvelles informations
+        // Input new information
         System.out.println("Modifiez les informations du document (laisser vide pour conserver l'ancien) :");
         System.out.print("Titre (" + document.getTitre() + ") : ");
         String titre = scanner.nextLine();
@@ -100,7 +106,7 @@ public class DocumentUI {
         String pagesStr = scanner.nextLine();
         if (!pagesStr.isEmpty()) document.setNombreDePages(Integer.parseInt(pagesStr));
 
-        // Mettre à jour en fonction du type
+        // Modify additional fields based on document type
         if (document instanceof Livre) {
             Livre livre = (Livre) document;
             System.out.print("ISBN (" + livre.getIsbn() + ") : ");
@@ -123,12 +129,14 @@ public class DocumentUI {
             if (!domaine.isEmpty()) journal.setDomaineRecherche(domaine);
         }
 
-        // Afficher les nouvelles valeurs
+        // Display new information
         System.out.println("Nouvelles informations du document :");
         displayDocumentInfo(document);
 
+        // Update the document in the service
         documentService.editDocument(document);
     }
+
 
     private void displayDocumentInfo(Document document) {
         System.out.println("Titre: " + document.getTitre());
@@ -168,13 +176,16 @@ public class DocumentUI {
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        Document document = documentService.getDocumentById(id);
-        if (document != null) {
+        Optional<Document> optionalDocument = documentService.getDocumentById(id);
+
+        if (optionalDocument.isPresent()) {
+            Document document = optionalDocument.get();
             System.out.println(document);
         } else {
             System.out.println("Document non trouvé.");
         }
     }
+
 
     public void displayAllDocuments() {
         System.out.println("=== Afficher Tous les Documents ===");
@@ -188,13 +199,18 @@ public class DocumentUI {
         System.out.println("=== Rechercher un Document ===");
         System.out.print("Titre du document à rechercher : ");
         String titre = scanner.nextLine();
-        List<Document> documents = documentService.searchDocument(titre);
-        if (documents.isEmpty()) {
-            System.out.println("Aucun document trouvé.");
-        } else {
+
+        // Fetching the search results wrapped in Optional
+        Optional<List<Document>> optionalDocuments = documentService.searchDocument(titre);
+
+        if (optionalDocuments.isPresent()) {
+            List<Document> documents = optionalDocuments.get();
             for (Document doc : documents) {
                 System.out.println(doc);
             }
+        } else {
+            System.out.println("Aucun document trouvé.");
         }
     }
+
 }

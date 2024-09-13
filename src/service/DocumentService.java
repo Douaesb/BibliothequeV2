@@ -9,6 +9,7 @@ import utilitaire.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DocumentService {
     private DocumentDao livreDao = new LivreDaoImpl();
@@ -91,13 +92,14 @@ public class DocumentService {
     }
 
 
-    public List<Document> searchDocument(String titre) {
+    public Optional<List<Document>> searchDocument(String titre) {
         List<Document> result = new ArrayList<>();
         for (DocumentDao dao : getAllDaos()) {
             result.addAll(dao.searchDocument(titre));
         }
-        return result;
+        return result.isEmpty() ? Optional.empty() : Optional.of(result);
     }
+
 
     public void deleteDocument(int documentId) {
         for (DocumentDao dao : getAllDaos()) {
@@ -105,15 +107,16 @@ public class DocumentService {
         }
     }
 
-    public Document getDocumentById(int documentId) {
+    public Optional<Document> getDocumentById(int documentId) {
         for (DocumentDao dao : getAllDaos()) {
-            Document document = dao.getDocumentById(documentId);
-            if (document != null) {
+            Optional<Document> document = Optional.ofNullable(dao.getDocumentById(documentId));
+            if (document.isPresent()) {
                 return document;
             }
         }
-        return null;
+        return Optional.empty();
     }
+
 
 
 
