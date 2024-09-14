@@ -1,5 +1,6 @@
 package presentation;
 
+import service.BibliothequeService;
 import service.DocumentService;
 import entities.documents.*;
 import utilitaire.DateUtils;
@@ -12,6 +13,8 @@ import java.util.Scanner;
 public class DocumentUI {
 
     private DocumentService documentService;
+    private BibliothequeService bibliothequeService = new BibliothequeService();
+
     private Scanner scanner;
 
     public DocumentUI(DocumentService documentService) {
@@ -189,7 +192,7 @@ public class DocumentUI {
 
     public void displayAllDocuments() {
         System.out.println("=== Afficher Tous les Documents ===");
-        List<Document> documents = documentService.displayAllDocuments();
+        List<Document> documents = bibliothequeService.displayAllDocuments();
         for (Document doc : documents) {
             System.out.println(doc);
         }
