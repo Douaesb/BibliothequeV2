@@ -20,4 +20,5 @@ public interface UtilisateurDao {
 
     Utilisateur getUserById(int id);
 
+    Utilisateur getUserByEmail(String email);
 }

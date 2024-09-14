@@ -1,6 +1,8 @@
 package service.interfaces;
 
+import entities.users.Utilisateur;
+
 public interface Reservable {
-     void reserver();
-     void annulerResrvation();
+     boolean reserver(int userId, Utilisateur user);
+     boolean annulerReservation(int userId);
 }

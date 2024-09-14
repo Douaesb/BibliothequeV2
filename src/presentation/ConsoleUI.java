@@ -1,11 +1,13 @@
 package presentation;
 
+import entities.users.Utilisateur;
 import service.DocumentService;
 import service.EmpruntService;
 import service.ReservationService;
 import service.UtilisateurService;
 import utilitaire.InputValidator;
 
+import java.util.Optional;
 import java.util.Scanner;
 
 public class ConsoleUI {
@@ -18,8 +20,8 @@ public class ConsoleUI {
 
     private DocumentUI DocumentUI = new DocumentUI(documentService);
     private UserUI UserUI = new UserUI(utilisateurService);
-    private EmpruntUI EmpruntUI = new EmpruntUI(empruntService);
-    private ReservationUI ReservationUI = new ReservationUI(reservationService);
+    private EmpruntUI EmpruntUI = new EmpruntUI(empruntService,documentService);
+    private ReservationUI ReservationUI = new ReservationUI(reservationService,documentService);
 
     public void start() {
         System.out.println("=== Système de Gestion de Bibliothèque ===");
@@ -31,20 +33,27 @@ public class ConsoleUI {
             input = promptInput();
 
             if (InputValidator.isValidEmail(input)) {
-                int userType = utilisateurService.checkUserType(input);
+                Optional<Utilisateur> userOptional = utilisateurService.getUtilisateurByEmail(input);
 
-                switch (userType) {
-                    case 1:
-                        displayEtudiantMenu(input);
-                        validInput = true;
-                        break;
-                    case 2:
-                        displayProfesseurMenu(input);
-                        validInput = true;
-                        break;
-                    default:
-                        System.out.println("Utilisateur non trouvé ou type non reconnu.");
-                        break;
+                if (userOptional.isPresent()) {
+                    Utilisateur user = userOptional.get();
+                    int userType = utilisateurService.checkUserType(user);
+
+                    switch (userType) {
+                        case 1: // Etudiant
+                            displayEtudiantMenu(user);
+                            validInput = true;
+                            break;
+                        case 2: // Professeur
+                            displayProfesseurMenu(user);
+                            validInput = true;
+                            break;
+                        default:
+                            System.out.println("Utilisateur non trouvé ou type non reconnu.");
+                            break;
+                    }
+                } else {
+                    System.out.println("Utilisateur non trouvé.");
                 }
             } else if (isAdminSecretCodeValid(input)) {
                 displayAdminMenu();
@@ -68,7 +77,7 @@ public class ConsoleUI {
     }
 
 
-    private void displayEtudiantMenu(String email) {
+    private void displayEtudiantMenu(Utilisateur user) {
         int choice;
         do {
             System.out.println("\n=== Menu Étudiant ===");
@@ -84,20 +93,19 @@ public class ConsoleUI {
 
             switch (choice) {
                 case 1:
-                   EmpruntUI.borrowDocument();
+                    EmpruntUI.borrowDocument(user);  // Pass the user object
                     break;
                 case 2:
-                    EmpruntUI.returnDocument();
+                    EmpruntUI.returnDocument();  // Pass the user object for return
                     break;
                 case 3:
-                    ReservationUI.reserveDocument();
+                    ReservationUI.reserveDocument(user);  // Pass the user object for reservation
                     break;
                 case 4:
-                    ReservationUI.cancelReservation();
+                    ReservationUI.cancelReservation();  // Pass the user object for canceling reservation
                     break;
                 case 5:
-                    // Retourner un livre ou annuler une réservation
-                    retournerLivreOuAnnulerReservation(email);
+                     // Any other method that needs user info
                     break;
                 case 6:
                     System.out.println("Déconnexion...");
@@ -108,15 +116,15 @@ public class ConsoleUI {
         } while (choice != 6);
     }
 
-    private void displayProfesseurMenu(String email) {
+    private void displayProfesseurMenu(Utilisateur user) {
         int choice;
         do {
             System.out.println("\n=== Menu Professeur ===");
             System.out.println("1. Emprunter une thèse ou un journal scientifique");
-            System.out.println("2. Réserver une thèse ou un journal scientifique");
-            System.out.println("3. Afficher les documents disponibles (Thèses et Journaux Scientifiques)");
-            System.out.println("4. Voir mes emprunts et réservations");
-            System.out.println("5. Retourner une thèse / Annuler une réservation");
+            System.out.println("2. Retourner une thèse ou un journal scientifique");
+            System.out.println("3. Réserver une thèse ou un journal scientifique");
+            System.out.println("4. Annuler reservation");
+            System.out.println("5. Afficher");
             System.out.println("6. Se déconnecter");
             System.out.print("Veuillez choisir une option : ");
             choice = scanner.nextInt();
@@ -124,19 +132,18 @@ public class ConsoleUI {
 
             switch (choice) {
                 case 1:
-                    emprunterTheseOuJournal(email);
+                    EmpruntUI.borrowDocument(user);  // Pass the user object
                     break;
                 case 2:
-                    reserverTheseOuJournal(email);
+                    EmpruntUI.returnDocument();  // Pass the user object for return
                     break;
                 case 3:
-                    afficherDocumentsDisponibles("Professeur");
+                    ReservationUI.reserveDocument(user);  // Pass the user object for reservation
                     break;
                 case 4:
-                    afficherEmpruntsReservations(email);
+                    ReservationUI.cancelReservation();  // Pass the user object for canceling reservation
                     break;
                 case 5:
-                    retournerTheseOuAnnulerReservation(email);
                     break;
                 case 6:
                     System.out.println("Déconnexion...");

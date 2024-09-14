@@ -24,7 +24,7 @@ public class DocumentUI {
         System.out.print("Type de document (entrer un nombre) (1:Livre, 2:Magazine, 3:ThèseUniversitaire, 4:JournalScientifique) : ");
         int type = scanner.nextInt();
         Document document = null;
-
+        scanner.nextLine();
         // Saisie des informations communes
         System.out.print("Titre : ");
         String titre = scanner.nextLine();

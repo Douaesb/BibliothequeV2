@@ -1,14 +1,18 @@
 package entities.documents;
 
+import entities.users.Utilisateur;
 import service.EmpruntService;
+import service.ReservationService;
 import service.interfaces.Empruntable;
+import service.interfaces.Reservable;
 
 import java.time.LocalDate;
 
-public class JournalScientifique extends Document implements Empruntable {
+public class JournalScientifique extends Document implements Empruntable, Reservable {
 
     private String domaineRecherche;
-    private EmpruntService empruntService;
+    private EmpruntService empruntService = new EmpruntService();
+    private ReservationService reservationService = new ReservationService();
 
     public JournalScientifique( String titre, String auteur, LocalDate datePublication, int nombreDePages, String domaineRecherche) {
         super( titre, auteur, datePublication, nombreDePages);
@@ -40,12 +44,23 @@ public class JournalScientifique extends Document implements Empruntable {
 
 
     @Override
-    public boolean emprunter(int userId) {
-        return empruntService.borrowDocument(this.getId(), userId);
+    public boolean emprunter(int userId, Utilisateur user) {
+        // Pass the current instance (this) as the Document and the user as Utilisateur
+        return empruntService.borrowDocument(this.getId(), userId, this, user);
     }
 
     @Override
     public boolean retourner(int userId) {
         return empruntService.returnDocument(this.getId(), userId);
+    }
+
+    @Override
+    public boolean reserver(int userId, Utilisateur user) {
+        return reservationService.reserveDocument(this.getId(), userId, this, user);
+    }
+
+    @Override
+    public boolean annulerReservation(int userId) {
+        return reservationService.cancelReservation(this.getId(), userId);
     }
 }

@@ -1,11 +1,13 @@
 package entities.documents;
 
+import service.interfaces.Empruntable;
+import service.interfaces.Reservable;
 import utilitaire.DateUtils;
 
 import java.time.LocalDate;
 
 
-public abstract class Document {
+public abstract class Document implements Empruntable, Reservable {
 
 
     protected int id;

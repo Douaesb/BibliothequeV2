@@ -8,5 +8,6 @@ public interface EmpruntDao {
     Emprunt getActiveEmpruntByDocumentIdAndUserId(int documentId, int userId);
     void deleteEmprunt(int empruntId);
     boolean isDocumentBorrowed(int documentId);
+    Emprunt getActiveEmpruntByDocumentId(int documentId);
 }
 

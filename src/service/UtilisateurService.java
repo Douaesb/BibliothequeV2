@@ -10,6 +10,7 @@ import utilitaire.InputValidator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UtilisateurService {
     private UtilisateurDao etudiantDao = new EtudiantDaoImpl();
@@ -58,8 +59,12 @@ public class UtilisateurService {
     }
 
     public void displayUtilisateur(int utilisateurId) {
-        etudiantDao.displayUser(utilisateurId);
-        professeurDao.displayUser(utilisateurId);
+        Utilisateur utilisateur = getUtilisateurById(utilisateurId);
+        if (utilisateur != null) {
+            System.out.println(utilisateur);
+        } else {
+            System.out.println("Utilisateur non trouvé.");
+        }
     }
 
     public void displayAllUtilisateurs() {
@@ -77,25 +82,33 @@ public class UtilisateurService {
         professeurDao.deleteUser(utilisateurId);
     }
 
-    public int checkUserType(String email) {
-        if (etudiantDao.emailExists(email)) {
+    public int checkUserType(Utilisateur utilisateur) {
+        if (utilisateur instanceof Etudiant) {
             return 1; // Étudiant
         }
-        if (professeurDao.emailExists(email)) {
+        if (utilisateur instanceof Professeur) {
             return 2; // Professeur
         }
         return -1;
     }
 
+    public Optional<Utilisateur> getUtilisateurByEmail(String email) {
+        Utilisateur utilisateur = etudiantDao.getUserByEmail(email);  // Try to get the Etudiant
+        if (utilisateur != null) {
+            return Optional.of(utilisateur);
+        }
+
+        utilisateur = professeurDao.getUserByEmail(email);  // If not found, try with Professeur
+        return Optional.ofNullable(utilisateur);
+    }
+
     public Utilisateur getUtilisateurById(int id) {
-        Utilisateur utilisateur = etudiantDao.getUserById(id);  // Essayer de récupérer l'étudiant
+        Utilisateur utilisateur = etudiantDao.getUserById(id);  // Try to get the Etudiant
         if (utilisateur != null) {
             return utilisateur;
         }
 
-        utilisateur = professeurDao.getUserById(id);  // Si l'utilisateur n'est pas un étudiant, essayer avec le professeur
+        utilisateur = professeurDao.getUserById(id);  // If not found, try with Professeur
         return utilisateur;
     }
-
-
 }
